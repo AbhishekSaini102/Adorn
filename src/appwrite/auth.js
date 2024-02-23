@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable no-unused-vars */
-import conf from '../conf.js';
+import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService{
@@ -56,6 +56,6 @@ export class AuthService{
     }
 }
 
-const authService = new authService();
+const authService = new AuthService();
 
 export default authService;
