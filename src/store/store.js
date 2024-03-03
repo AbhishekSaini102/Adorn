@@ -1,10 +1,13 @@
-//create a store for the application using redux toolkit
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
+import authSlice from "./authSlice";
+// import userSlice from "./userSlice";
 
 const store = configureStore({
     reducer: {
-        // Add reducers here
-    }
+      auth: authSlice,
+      // user: userSlice,
+      
+    },
 });
 
 export default store;
