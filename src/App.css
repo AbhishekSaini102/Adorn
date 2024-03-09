@@ -40,3 +40,48 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* .loading-bar {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #f00;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+} */
+
+/* .skeleton-loader {
+  position: fixed;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, #4B5563, transparent);
+  background-size: 200% 200%;
+  animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+} */
+
+
+

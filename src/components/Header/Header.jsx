@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
@@ -24,8 +25,8 @@ function Header() {
       name: "Home",
       slug: "/",
       active: true,
-      bgColor: "bg-white",
-      textColor: "text-gray-700",
+      bgColor: "",
+      textColor: "",
     },
     { name: "Testing", slug: "/testing", active: authStatus },
     {
@@ -73,12 +74,13 @@ function Header() {
       authService.getCurrentUser().then((data) => {
         setUserData(data);
         setFetched(true);
+        setDropdownOpen(false);
       });
     } else if (!authStatus) {
       setUserData(null);
       setFetched(false);
     }
-  }, [authStatus]);
+  }, [authStatus, fetched]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -91,7 +93,7 @@ function Header() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [authStatus, userData]);
+  }, [authStatus,userData]); //authStatus, userData
 
   return (
     <header className="py-3 bg-white border-b border-t-black">
@@ -137,17 +139,27 @@ function Header() {
                   </div>
                 </button>
                 {dropdownOpen && (
-                  <ul className="absolute right-0 ml-8 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl">
+                  <ul className="absolute z-40 right-0 ml-8 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl">
                     <li>
                       <button
-                        onClick={() => navigate("/account")}
+                        onClick={() => {
+                          navigate("/account");
+                          setDropdownOpen(false);
+                        }}
                         className=" w-full font-semibold block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-gray-500 hover:text-white"
                       >
                         Account
                       </button>
                     </li>
                     <li>
-                      <LogoutBtn className=" " />
+                      <LogoutBtn
+                        onClick={() => {
+                          // authService.logout();
+                          navigate("/");
+                          setDropdownOpen(false);
+                        }}
+                        className=" "
+                      />
                     </li>
                   </ul>
                 )}
@@ -158,7 +170,6 @@ function Header() {
       </Container>
     </header>
   );
-
 }
 
 export default Header;

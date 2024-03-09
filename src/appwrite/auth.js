@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-catch */
 import conf from "../conf/conf.js";
 import { Client, Account, ID, Databases } from "appwrite";
@@ -50,7 +51,6 @@ export class AuthService {
     return null;
   }
 
-  
   async logout() {
     try {
       await this.account.deleteSessions();

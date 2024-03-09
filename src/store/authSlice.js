@@ -17,7 +17,6 @@ const authSlice = createSlice({
       state.status = false;
       state.userData = null;
     },
-    
   },
 });
 

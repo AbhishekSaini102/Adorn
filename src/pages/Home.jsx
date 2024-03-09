@@ -17,7 +17,7 @@ function Home() {
         setPosts(posts.documents);
       }
     });
-  }, []);
+  }, [authStatus]);
 
   if (!authStatus) {
     return (

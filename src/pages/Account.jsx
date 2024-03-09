@@ -59,10 +59,12 @@ function Account() {
       <Container>
         <div className="profile-info text-center border-b-2 border-gray-200 pb-8 mb-8">
           <div className="bg-blue-500 text-white font-bold text-2xl rounded-full w-16 h-16 flex items-center justify-center mb-4 mx-auto">
-            {user.name
-              .split(" ")
-              .map((n) => n[0].toUpperCase())
-              .join("")}
+            {user && user.name
+              ? user.name
+                  .split(" ")
+                  .map((n) => n[0].toUpperCase())
+                  .join("")
+              : ""}
           </div>
           <h2 className="text-2xl font-bold">{user.name}</h2>
           <p>{user.email}</p>

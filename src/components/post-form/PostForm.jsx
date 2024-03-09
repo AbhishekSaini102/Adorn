@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
+import authService from "../../appwrite/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -20,12 +21,17 @@ export default function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.userData);
+  let userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    // Fetch current user's data if userData is not available
+    if (!userData) {
+      userData = await authService.getCurrentUser();
+    }
+
     if (post) {
       const file = data.image[0]
-        ? await appwriteService.uploadFile(data.image[0])
+        ? appwriteService.uploadFile(data.image[0])
         : null;
 
       if (file) {
@@ -136,7 +142,7 @@ export default function PostForm({ post }) {
           bgColor={post ? "bg-green-500" : undefined}
           className="w-full"
         >
-          {post ? "Update" : "Submit"}
+          {post ? "Update Post" : "Add Post"}
         </Button>
       </div>
     </form>

@@ -72,7 +72,7 @@ export default function Post() {
     post && ( // Added authStatus here
       <div className="py-10">
         <Container>
-          <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+          <div className="w-full z-10 flex justify-center mb-4 relative border rounded-xl p-2">
             <img
               src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
@@ -80,7 +80,7 @@ export default function Post() {
             />
 
             {authStatus && isEditing && (
-              <div className="absolute right-6 top-6">
+              <div className="absolute right-6 top-6 bg-white rounded-lg px-2 py-2">
                 <button onClick={toggleDropdown}>Menu</button>
                 {isOpen && (
                   <div className="dropdown">
