@@ -7,6 +7,7 @@ import { login, logout } from "./store/authSlice";
 import {Header, Footer} from "./components";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 // function App() {
 //   const [loading, setLoading] = useState(true); // Corrected here
 //   const dispatch = useDispatch();

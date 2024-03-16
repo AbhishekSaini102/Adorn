@@ -1,67 +1,60 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import { Button, Container, PostCard } from "../components";
-// import AllPosts from "./AllPosts";
+import { Button, Container } from "../components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 function Home() {
-  const [posts, setPosts] = useState([]);
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    appwriteService.getPosts().then((posts) => {
-      if (posts) {
-        setPosts(posts.documents);
-      }
-    });
-  }, [authStatus]);
-
-  if (!authStatus) {
-    return (
-      <div className="w-full h-screen py-8 mt-4 text-center">
-        <Container>
-          <div className="flex flex-wrap">
-            <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read posts
-              </h1>
-            </div>
-          </div>
-
-          <div>
-            <Container>
-              <Button
-                onClick={() => {
-                  navigate("/login");
-                }}
-                bgColor="bg-blue-500"
-                className="text-white hover:bg-blue-600 hover:text-blue-600  mt-2"
-              >
-                Login
-              </Button>
-            </Container>
-          </div>
-        </Container>
+  const Card = () => (
+    <div className="w-full h-96 bg-white grid grid-cols-3 grid-rows-3 gap-4 p-5 rounded-sm shadow-md overflow-hidden grid-background border border-black">
+      <div className="col-span-1 row-span-3">
+        <img
+          className="h-full w-full object-cover rounded-sm"
+          src="https://tailwindcss.com/img/card-top.jpg"
+          alt="Blog logo"
+        />
       </div>
-    );
-  } else {
-    return (
-      <div className="w-full py-8 h-screen">
-        <Container>
-          <div className="flex flex-wrap">
-            {posts.map((post) => (
-              <div key={post.$id} className="p-2 w-1/4">
-                <PostCard {...post} />
-              </div>
-            ))}
-          </div>
-        </Container>
+      <div className="col-span-2 row-span-3 p-4 bg-white rounded-sm border ">
+        <div className="uppercase tracking-wide text-sm text-black font-semibold">
+          Computer Language Blog
+        </div>
+        <a
+          href="#"
+          className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
+        >
+          Learn HTML
+        </a>
+        <p className="mt-2  text-black">
+          HTML, or HyperText Markup Language, is the standard language for
+          creating web pages. It uses tags and attributes to structure and
+          format web content. With HTML, you can create headings, lists, images,
+          links, and more, making your web page interactive and dynamic. It’s
+          the foundation of any web page you see on the internet.
+        </p>
+        <Button
+          onClick={() => {
+            navigate(authStatus ? "/html" : "/login");
+          }}
+          bgColor="bg-blue-500"
+          className="text-white hover:bg-blue-600 hover:text-blue-600  mt-2"
+        >
+          Learn HTML
+        </Button>
       </div>
-    );
-  }
+    </div>
+  );
+
+  return (
+    <div className="w-full h-screen text-center">
+      <div className=" w-full">
+        <Card />
+      </div>
+    </div>
+  );
 }
 
 export default Home;

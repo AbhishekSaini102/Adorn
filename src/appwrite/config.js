@@ -1,5 +1,10 @@
+/* eslint-disable no-unused-vars */
 import conf from "../conf/conf.js";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { v4 as uuidv4 } from "uuid";
+
+
+
 
 export class Service {
   client = new Client();
@@ -23,57 +28,76 @@ export class Service {
     userId,
     authorName,
     authorEmail,
+    languages,
+    topics,
   }) {
     try {
+      let post_Id = uuidv4();
+
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug,
+        post_Id,
         {
           title,
+          slug,
           content,
           featuredImage,
           status,
           userId,
           authorName,
           authorEmail,
+          languages,
+          topics,
+          post_Id,
         }
       );
     } catch (error) {
       console.log("Appwrite service :: createPost :: error", error);
     }
   }
-
   async updatePost(
-    slug,
-    { title, content, featuredImage, status, authorName, authorEmail }
+    post_Id,
+    {
+      title,
+      slug,
+      content,
+      featuredImage,
+      status,
+      authorName,
+      authorEmail,
+      languages,
+      topics,
+    }
   ) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug,
+        post_Id,
         {
           title,
+          slug,
+          languages,
           content,
           featuredImage,
           status,
           authorName,
           authorEmail,
+          topics,
         }
       );
-      
     } catch (error) {
       console.log("Appwrite service :: updatePost :: error", error);
     }
   }
 
-  async deletePost(slug) {
+  async deletePost(post_Id) {
     try {
       await this.databases.deleteDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug
+        post_Id
       );
       return true;
     } catch (error) {
@@ -82,12 +106,13 @@ export class Service {
     }
   }
 
-  async getPost(slug) {
+  async getPost(post_Id) {
     try {
       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug
+        post_Id
+
       );
     } catch (error) {
       console.log("Appwrite service :: getPost :: error", error);
@@ -97,6 +122,22 @@ export class Service {
 
   async getPosts(queries = [Query.equal("status", "active")]) {
     try {
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getPosts :: error", error);
+      return false;
+    }
+  }
+  async getPostsByTopic(topic) {
+    try {
+      let queries = [
+        Query.equal("status", "active"),
+        Query.equal("topic", topic),
+      ];
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
@@ -126,13 +167,20 @@ export class Service {
 
   // file upload service
 
-  async uploadFile(file) {
+  // async uploadFile(file) {
+  //   try {
+  //     return this.bucket.createFile(conf.appwriteBucketId, ID.unique(), file);
+  //   } catch (error) {
+  //     console.log("Appwrite service :: uploadFile :: error", error);
+  //     return false;
+  //   }
+  // }
+
+  async uploadFile(file, postId) {
     try {
-      return this.bucket.createFile(
-        conf.appwriteBucketId,
-        ID.unique(),
-        file
-      );
+      // Check if postId is defined and is a string. If not, generate a new UUID.
+      postId = postId && typeof postId === "string" ? postId : uuidv4();
+      return this.bucket.createFile(conf.appwriteBucketId, postId, file);
     } catch (error) {
       console.log("Appwrite service :: uploadFile :: error", error);
       return false;

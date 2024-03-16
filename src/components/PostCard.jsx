@@ -9,6 +9,7 @@ function PostCard({
       $id,
       title,
       featuredImage,
+      slug,
     //   content,
     //   author,
     //   createdAt,
@@ -24,7 +25,7 @@ function PostCard({
     }){
   return (
     <div>
-    <Link to={`/post/${$id}`}>
+    <Link to={`/post/${slug}/${$id}`}>
         <div className='w-full bg-gray-100 rounded-xl p-4 '>
             <div className='w-full h-40 bg-gray-200 rounded-lg mb-4'>
 

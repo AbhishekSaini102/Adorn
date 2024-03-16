@@ -14,7 +14,7 @@ export default function Post() {
   const [isEditing, setIsEditing] = useState(false); // Added state for editing
   const [isAuthor, setIsAuthor] = useState(false); // Initialize isAuthor state
 
-  const { slug } = useParams();
+  const {slug, post_Id } = useParams();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
@@ -22,9 +22,9 @@ export default function Post() {
 
   useEffect(() => {
     setIsLoading(true); // Set loading to true initially
-    if (slug) {
+    if (post_Id && slug) {
       appwriteService
-        .getPost(slug)
+        .getPost(post_Id, slug)
         .then((post) => {
           if (post) {
             setPost(post);
@@ -47,7 +47,7 @@ export default function Post() {
     } else {
       navigate("/");
     }
-  }, [slug, navigate]); // Removed isAuthor from dependency array
+  }, [post_Id, slug, navigate]); // Removed isAuthor from dependency array
 
   useEffect(() => {
     if (!authStatus) {
@@ -84,7 +84,7 @@ export default function Post() {
                 <button onClick={toggleDropdown}>Menu</button>
                 {isOpen && (
                   <div className="dropdown">
-                    <Link to={`/edit-post/${post.$id}`}>
+                    <Link to={`/edit-post/${post.slug}/${post.$id}`}>
                       <Button bgColor="bg-green-500" className="mr-3">
                         Edit
                       </Button>

@@ -46,7 +46,7 @@ function Header() {
       hoverTextColor: "text-blue-600",
     },
     {
-      name: "AllPosts",
+      name: "All Posts",
       slug: "/all-posts",
       active: authStatus,
       bgColor: "",

@@ -18,6 +18,8 @@ import Post from "./pages/Post";
 import AllPosts from "./pages/AllPosts";
 import Testing from "./pages/Testing.jsx";
 import Account from "./pages/Account.jsx";
+import Html from "./pages/Html.jsx";
+import TopicPosts from "./pages/TopicPosts.jsx";
 
 
 
@@ -73,7 +75,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/edit-post/:slug",
+        path: "/edit-post/:slug/:post_Id",
         element: (
           <AuthLayout authentication>
             {" "}
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/post/:slug",
+        path: "/post/:slug/:post_Id",
         element: <Post />,
       },
 
@@ -92,6 +94,26 @@ const router = createBrowserRouter([
           <AuthLayout authentication>
             {" "}
             <Testing />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/html",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <Html />
+          </AuthLayout>
+        ),
+        
+      },
+      
+      {
+        path: "/:languages/:slug",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <TopicPosts />
           </AuthLayout>
         ),
       },
