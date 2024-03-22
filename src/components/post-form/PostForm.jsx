@@ -1036,12 +1036,6 @@ export default function PostForm({ post }) {
         />
 
         <Input
-          label="Title :"
-          placeholder="Title"
-          className="mb-4"
-          {...register("title", { required: true })}
-        />
-        <Input
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
@@ -1052,6 +1046,14 @@ export default function PostForm({ post }) {
             });
           }}
         />
+
+        <Input
+          label="Title/Description :"
+          placeholder="Title"
+          className="mb-4"
+          {...register("title", { required: true })}
+        />
+
         <RTE
           label="Content :"
           name="content"

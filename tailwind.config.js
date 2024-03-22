@@ -2,8 +2,16 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      minWidth: {
+        max: "max-content",
+      },
+      margin: {
+        0.2: "0.05rem",
+      },
+    },
   },
+  variants: {},
   plugins: [],
 };
 

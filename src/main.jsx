@@ -20,6 +20,8 @@ import Testing from "./pages/Testing.jsx";
 import Account from "./pages/Account.jsx";
 import Html from "./pages/Html.jsx";
 import TopicPosts from "./pages/TopicPosts.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 
 
@@ -49,6 +51,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/forgot-password",
+        element: (
+          <AuthLayout authentication={false}>
+            <ForgotPassword />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/reset-password/:userId/:secret",
+        element: (
+          <AuthLayout authentication={false}> 
+            <ResetPassword />
+          </AuthLayout>
+        ),
+      },
+      { 
         path: "/signup",
         element: (
           <AuthLayout authentication={false}>
@@ -105,11 +123,10 @@ const router = createBrowserRouter([
             <Html />
           </AuthLayout>
         ),
-        
       },
-      
+
       {
-        path: "/:languages/:slug",
+        path: "/html/:slug/:post_Id",
         element: (
           <AuthLayout authentication>
             {" "}

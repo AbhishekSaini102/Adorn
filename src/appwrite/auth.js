@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-catch */
 import conf from "../conf/conf.js";
-import { Client, Account, ID, Databases } from "appwrite";
+import { Client, Account, ID, Databases} from "appwrite";
 
 export class AuthService {
   client = new Client();
@@ -11,6 +11,7 @@ export class AuthService {
     this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
+    // .setKey(conf.appwriteAPIKey);
     this.account = new Account(this.client);
   }
 
@@ -33,11 +34,37 @@ export class AuthService {
     }
   }
 
+  
+
   async login({ email, password }) {
     try {
       return await this.account.createEmailSession(email, password);
     } catch (error) {
       throw error;
+    }
+  }
+
+  async forgotPassword(email) {
+    try {
+      return await this.account.createRecovery(
+        email,
+        "http://localhost:5173/reset-password/{userId}/{secret}"
+      );
+    } catch (error) {
+      console.log("Appwrite service :: forgotPassword :: error", error);
+    }
+  }
+
+  async updatePasswordRecovery(userId, secret, newPassword, confirmPassword) {
+    try {
+      return await this.account.updateRecovery(
+        userId,
+        secret,
+        newPassword,
+        confirmPassword
+      );
+    } catch (error) {
+      console.log("Appwrite service :: updatePasswordRecovery :: error", error);
     }
   }
 

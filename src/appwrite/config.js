@@ -112,7 +112,6 @@ export class Service {
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         post_Id
-
       );
     } catch (error) {
       console.log("Appwrite service :: getPost :: error", error);
@@ -200,6 +199,51 @@ export class Service {
   getFilePreview(fileId) {
     return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
+
+  async createUserInfo({ userId, userBio }) {
+    try {
+      return await this.databases.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionIdUsers,
+        userId,
+        {
+          userId,
+          userBio,
+        }
+      );
+    } catch (error) {
+      console.log("Appwrite service :: createUserInfo :: error", error);
+    }
+  }
+
+  async updateUserInfo(userId, userBio) {
+    try {
+      return await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionIdUsers,
+        userId,
+        {
+          userBio,
+        }
+      );
+    } catch (error) {
+      console.log("Appwrite service :: updateUserInfo :: error", error);
+    }
+  }
+
+  async getUserInfo(userId) {
+    try {
+      return await this.databases.getDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionIdUsers,
+        userId
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getUserInfo :: error", error);
+      return false;
+    }
+  }
+
 }
 
 const service = new Service();
