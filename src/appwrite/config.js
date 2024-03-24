@@ -30,6 +30,9 @@ export class Service {
     authorEmail,
     languages,
     topics,
+    code,
+    languageforeditor,
+    theme,
   }) {
     try {
       let post_Id = uuidv4();
@@ -50,6 +53,9 @@ export class Service {
           languages,
           topics,
           post_Id,
+          code,
+          languageforeditor,
+          theme,
         }
       );
     } catch (error) {
@@ -68,6 +74,9 @@ export class Service {
       authorEmail,
       languages,
       topics,
+      code,
+      languageforeditor,
+      theme,
     }
   ) {
     try {
@@ -85,6 +94,9 @@ export class Service {
           authorName,
           authorEmail,
           topics,
+          code,
+          languageforeditor,
+          theme,
         }
       );
     } catch (error) {
@@ -243,7 +255,6 @@ export class Service {
       return false;
     }
   }
-
 }
 
 const service = new Service();

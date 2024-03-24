@@ -842,7 +842,7 @@
 /* eslint-disable react/prop-types */
 import React, { useCallback, useState} from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button, Input, RTE, Select } from "..";
+import { Button, Input, RTE, Select, AdornEditor} from "..";
 import appwriteService from "../../appwrite/config";
 import authService from "../../appwrite/auth";
 import { useNavigate } from "react-router-dom";
@@ -857,32 +857,78 @@ export default function PostForm({ post }) {
         postId: post?.$id || "",
         slug: post?.slug || "",
         content: post?.content || "",
+        code: post?.code || "",
         status: post?.status || "active",
         authorName: post?.authorName || "",
         authorEmail: post?.authorEmail || "",
         languages: post?.languages || "",
         topics: post?.topics || "",
+        languageforeditor: post?.languageforeditor || "",
+        theme: post?.theme || "",
       },
     });
 
   const navigate = useNavigate();
   let userData = useSelector((state) => state.auth.userData);
 
+  // const [editorContent, setEditorContent] = useState(post?.content || "");
+  const [editorCode, setEditorCode] = useState(post?.code || "");
+
+  const handleEditorChange = (value, event) => {
+    setEditorCode(value);
+    setValue("code", value);
+  };
+
   const languages = ["html", "css"];
   const topics = {
     html: ["Html Element", "Topic2"],
     css: ["Css Basic", "Sujet2"],
   };
+
   const [selectedLanguage, setSelectedLanguage] = useState(
     post?.languages || ""
   );
+
+
+  const editorLanguages = [
+    "javascript",
+    "typescript",
+    "html",
+    "c",
+    "css",
+    "json",
+    "cpp",
+    "csharp",
+    "java",
+    "python",
+    "php",
+    "go",
+    "ruby",
+    "swift",
+    "kotlin",
+    "rust",
+    "shell",
+    "sql",
+    "yaml",
+  ]; // add more languages as needed
+  const themes = ["vs", "vs-dark", "hc-black"]; // add more themes as needed
+
+  // const [editorLanguage, setEditorLanguage] = useState(editorLanguages[0]);
+  // const [editorTheme, setEditorTheme] = useState(themes[0]);
+  const [editorLanguage, setEditorLanguage] = useState(post?.languageforeditor|| "");
+  const [editorTheme, setEditorTheme] = useState(post?.theme || "");
+
+  const findOption = (options, value) =>
+    options.find((option) => option.value === value);
 
   const submit = async (data) => {
     // Fetch current user's data if userData is not available
     if (!userData) {
       userData = await authService.getCurrentUser();
     }
-
+    data.languageforeditor = editorLanguage;
+    data.theme = editorTheme;
+    console.log(data);
     if (post) {
       const file = data.image[0]
         ? appwriteService.uploadFile(data.image[0])
@@ -899,7 +945,7 @@ export default function PostForm({ post }) {
 
       if (dbPost) {
         // navigate(`/post/${dbPost.$id}`);
-         navigate(`/post/${dbPost.slug}/${dbPost.$id}`);
+        navigate(`/post/${dbPost.slug}/${dbPost.$id}`);
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
@@ -913,7 +959,7 @@ export default function PostForm({ post }) {
           // post_Id: userData.$id,
           authorName: userData.name,
           authorEmail: userData.email,
-          
+
           // languages: userData.languages,
         });
 
@@ -948,14 +994,8 @@ export default function PostForm({ post }) {
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
-        {/* <Input
-          label="Languages :"
-          placeholder="Languages"
-          className="mb-4"
-          {...register("languages", { required: true })}
-        /> */}
-
+      <div className="w-full px-2">
+        
         <label
           htmlFor="status"
           className="block text-gray-700 text-base ml-1 mb-2"
@@ -1060,8 +1100,65 @@ export default function PostForm({ post }) {
           control={control}
           defaultValue={getValues("content")}
         />
-      </div>
-      <div className="w-1/3 px-2">
+        
+        <div className="flex justify-between mt-8">
+          <div className="w-1/2 pr-2">
+            <label
+              htmlFor="language"
+              className="block text-gray-700 text-base ml-1 mb-2"
+            >
+              Language:
+            </label>
+            <ReactSelect
+              id="language"
+              className="mb-4 z-20 w-full"
+              placeholder="Select Language"
+              value={findOption(
+                editorLanguages.map((language) => ({
+                  value: language,
+                  label: language,
+                })),
+                editorLanguage
+              )}
+              options={editorLanguages.map((language) => ({
+                value: language,
+                label: language,
+              }))}
+              onChange={(option) => setEditorLanguage(option.value)}
+            />
+          </div>
+
+          <div className="w-1/2 pl-2">
+            <label
+              htmlFor="theme"
+              className="block text-gray-700 text-base ml-1 mb-2"
+            >
+              Theme:
+            </label>
+            <ReactSelect
+              id="theme"
+              className="mb-4 z-20 w-full"
+              placeholder="Select Theme"
+              value={findOption(
+                themes.map((theme) => ({ value: theme, label: theme })),
+                editorTheme
+              )}
+              options={themes.map((theme) => ({ value: theme, label: theme }))}
+              onChange={(option) => setEditorTheme(option.value)}
+            />
+          </div>
+        </div>
+
+        
+        <div className="bg-gray-200 px-4 py-4 rounded-lg">
+          <AdornEditor
+            value={editorCode}
+            language={editorLanguage}
+            theme={editorTheme}
+            onChange={handleEditorChange}
+          />
+        </div>
+        
         <Input
           label="Featured Image :"
           type="file"
@@ -1078,6 +1175,7 @@ export default function PostForm({ post }) {
             />
           </div>
         )}
+
         {/* <Select
           options={["active", "inactive"]}
           label="Status"

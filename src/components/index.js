@@ -12,8 +12,9 @@ import AuthLayout from './AuthLayout';
 import Login from './Login';
 import PostCard from './PostCard';
 import RTE from './RTE';
+// import MonacoEditor from './MonacoEditor';
+import AdornEditor from './AdornEditor';
 
 
 
-
-export { Header, Footer , RTE, AuthLayout, PostCard, PostForm, Login, Signup, Input, Select, Container, Logo, LogoutBtn, Button,};
+export { Header, Footer , RTE, AuthLayout, PostCard, PostForm, Login, Signup, Input, Select, Container, Logo, LogoutBtn, Button, AdornEditor};

@@ -6,6 +6,7 @@ import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import authService from "../appwrite/auth"; // Import authService
+import AdornEditor from "../../src/components/AdornEditor";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -99,6 +100,15 @@ export default function Post() {
           </div>
           <div className="w-full mb-6">
             <h1 className="text-2xl font-bold">{post.title}</h1>
+            {/* <p className="text-xl font-bold">{post.code}</p> */}
+            <AdornEditor
+              className="rounded-lg"
+              language="cpp"
+              theme="vs-dark"
+              value={post.code}
+              readOnly={!isAuthor}
+              onChange={() => {}}
+            />
             <p>Author: {post.authorName}</p>
             <p>Email: {post.authorEmail}</p>
           </div>
