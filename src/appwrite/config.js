@@ -243,6 +243,19 @@ export class Service {
     }
   }
 
+  // async getUserInfo(userId) {
+  //   try {
+  //     return await this.databases.getDocument(
+  //       conf.appwriteDatabaseId,
+  //       conf.appwriteCollectionIdUsers,
+  //       userId
+  //     );
+  //   } catch (error) {
+  //     console.log("Appwrite service :: getUserInfo :: error", error);
+  //     return false;
+  //   }
+  // }
+
   async getUserInfo(userId) {
     try {
       return await this.databases.getDocument(
@@ -252,7 +265,13 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service :: getUserInfo :: error", error);
-      return false;
+      if (error.code === 404) {
+        // Document not found, return null
+        return null;
+      } else {
+        // Other errors, rethrow them
+        throw error;
+      }
     }
   }
 }

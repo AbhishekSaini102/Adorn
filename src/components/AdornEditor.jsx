@@ -114,7 +114,8 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
 
-function AdornEditor({ language, theme, value, onChange }) {
+
+function AdornEditor({ language = "cpp", theme = "vs-dark", value, onChange }) {
   const handleEditorChange = (value, event) => {
     onChange(value);
   };
@@ -135,6 +136,8 @@ function AdornEditor({ language, theme, value, onChange }) {
       height="90vh"
       theme={theme}
       language={language}
+      // border="1px solid black"
+      // borderRadius="20px"
       value={value || "// type your code..."}
       onChange={handleEditorChange}
       // onChangeLanguage={handleLanguageChange}

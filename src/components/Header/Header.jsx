@@ -28,7 +28,7 @@ function Header() {
       bgColor: "",
       textColor: "",
     },
-    { name: "Testing", slug: "/testing", active: authStatus },
+    { name: "AdornEditor", slug: "/adorn-editor", active: authStatus },
     {
       name: "Login",
       slug: "/login",

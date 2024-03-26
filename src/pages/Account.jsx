@@ -460,17 +460,42 @@ function Account() {
     }
   }, [authStatus]);
 
-  const handleSubmit = async (event) => {
+  
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const currentUser = await authService.getCurrentUser();
+  //     await appwriteService.updateUserInfo(currentUser.$id, userBio);
+  //     setUserBio(userBio);
+  //     setShowBioForm(false);
+  //   } catch (error) {
+  //     console.error("Error updating bio: ", error);
+  //   }
+  // };
+  
+    const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const currentUser = await authService.getCurrentUser();
-      await appwriteService.updateUserInfo(currentUser.$id, userBio);
+      const userInfo = await appwriteService.getUserInfo(currentUser.$id);
+      
+      if (userInfo) {
+        await appwriteService.updateUserInfo(currentUser.$id, userBio);
+      } else {
+        await appwriteService.createUserInfo({
+          userId: currentUser.$id,
+          userBio,
+        });
+      }
+      
       setUserBio(userBio);
       setShowBioForm(false);
     } catch (error) {
-      console.error("Error updating bio: ", error);
+      console.error("Error updating/creating bio: ", error);
     }
   };
+
 
   const deletePost = (postId, imageId) => {
     appwriteService.deletePost(postId).then((status) => {
@@ -501,7 +526,14 @@ function Account() {
           <p>{user.email}</p>
           {/* <p>{userBio}</p> */}
           {/* <pre>{userBio}</pre> */}
-          <p style={{ whiteSpace: "pre-line" }}>{userBio}</p>
+          {/* <p style={{ whiteSpace: "pre-line" }}>{userBio}</p> */}
+          {userBio ? (
+            <p style={{ whiteSpace: "pre-line" }}>{userBio}</p>
+          ) : (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Please add a bio to complete your profile.
+            </p>
+          )}
 
           <Button onClick={() => setShowBioForm(true)}>
             {userBio ? "Update Bio" : "Add Bio"}
@@ -535,7 +567,7 @@ function Account() {
           {posts.length > 0 ? (
             posts.map((post) => (
               <div key={post.$id} className="p-2 w-full sm:w-1/2 lg:w-1/4">
-                <Link to={`/post/$${post.$id}`}>
+                <Link to={`/post/${post.slug}/${post.$id}`}>
                   <div className="w-full bg-gray-100 rounded-xl p-4 ">
                     <div className="w-full h-40 bg-gray-200 rounded-lg mb-4">
                       <img

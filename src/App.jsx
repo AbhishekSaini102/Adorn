@@ -7,6 +7,7 @@ import { login, logout } from "./store/authSlice";
 import {Header, Footer} from "./components";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ScrollToTop from "./components/ScrollToTop";
 
 // function App() {
 //   const [loading, setLoading] = useState(true); // Corrected here
@@ -45,7 +46,7 @@ import { useSelector } from "react-redux";
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.auth.userData); 
+  const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     authService
@@ -63,14 +64,17 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-  }, [authService, dispatch]);
+  }, [authService, dispatch]); //authService, dispatch added to dependency array
 
   return !loading ? (
     <div className="flex flex-col min-h-screen bg-red bg-white">
-      <Header />
-      <main className="flex-grow" style={{ minHeight: "auto" }}>
-        {" "}
-        {/* Increase the height here */}
+      {/* <Header /> */}
+      <ScrollToTop />
+      <header className="sticky top-0 z-50 bg-white">
+        <Header />
+      </header>
+      {/* <main className="flex-grow" style={{ minHeight: "auto" }}> */}
+      <main className="flex-grow" style={{ minHeight: "100vh" }}>
         <Outlet />
       </main>
       <Footer />

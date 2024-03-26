@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@google-cloud/recaptcha-enterprise": "^5.5.0",
     "@monaco-editor/react": "^4.6.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@tinymce/tinymce-react": "^4.3.2",
     "appwrite": "^13.0.1",
+    "axios": "^1.6.8",
     "crypto-js": "^4.2.0",
+    "framer-motion": "^11.0.20",
     "html-react-parser": "^5.1.7",
     "monaco-editor": "^0.47.0",
     "postcss-nested": "^6.0.1",

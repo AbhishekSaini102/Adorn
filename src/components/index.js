@@ -14,7 +14,8 @@ import PostCard from './PostCard';
 import RTE from './RTE';
 // import MonacoEditor from './MonacoEditor';
 import AdornEditor from './AdornEditor';
+import ScrollToTop from './ScrollToTop';
 
 
 
-export { Header, Footer , RTE, AuthLayout, PostCard, PostForm, Login, Signup, Input, Select, Container, Logo, LogoutBtn, Button, AdornEditor};
+export { Header, Footer , RTE, AuthLayout, PostCard, PostForm, Login, Signup, Input, Select, Container, Logo, LogoutBtn, Button, AdornEditor, ScrollToTop};
