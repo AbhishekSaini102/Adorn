@@ -225,8 +225,8 @@ export default function Post() {
             {/* {post && ( */}
             <Link
               to={{
-                pathname: `/adorn-editor/${post.post_Id}`,
-                state: { code: post.code },
+                // pathname: `/adorn-editor/${post.post_Id}`,
+                // state: { code: post.code },
               }}
               onClick={runCode}
               className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block"

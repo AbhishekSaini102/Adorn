@@ -160,9 +160,9 @@ function CompileCodeEditor() {
             onChange={setCode} // pass setCode to AdornEditor to update code state when the editor's value changes
           />
         </div>
-        <div className="w-1/3 h-screen px-0 pt-4 pb-2 border rounded-lg overflow-auto">
-          <h2 className="text-lg mb-4 ml-3">Output</h2>
-          <div className="p-4 border h-5/6 rounded overflow-auto bg-gray-100 ">
+        <div className="w-1/3 px-0 pt-4 pb-2 border rounded-lg overflow-auto ">
+          <h2 className="text-lg mb-4 ml-3 ">Output</h2>
+          <div className="p-4 border h-full rounded overflow-auto bg-gray-100 z-10">
             {output}
           </div>
         </div>

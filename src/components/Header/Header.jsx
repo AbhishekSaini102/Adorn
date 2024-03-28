@@ -53,6 +53,13 @@ function Header() {
       textColor: "",
     },
     {
+      name: "Html Element",
+      slug: "/posts/html-element",
+      active: authStatus,
+      bgColor: "",
+      textColor: "",
+    },
+    {
       name: "Add Post",
       slug: "/add-post",
       active: authStatus,

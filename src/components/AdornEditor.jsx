@@ -133,7 +133,7 @@ function AdornEditor({ language = "cpp", theme = "vs-dark", value, onChange }) {
 
   return (
     <Editor
-      height="90vh"
+      height="81.5vh"
       theme={theme}
       language={language}
       // border="1px solid black"

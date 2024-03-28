@@ -3,29 +3,21 @@ import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
 import Loading from "../components/Loading";
+import { useParams } from "react-router-dom";
 
-function AllPosts() {
+function SlugPosts() {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-
-  // useEffect(() => {
-  //   appwriteService.getPosts([]).then((posts) => {
-  //     if (posts) {
-  //       setPosts(posts.documents);
-  //       setIsLoading(false); // Set loading to false after data is fetched
-  //     }
-  //   });
-  // }, []); // Empty dependency array ensures this runs once on mount
+  const { slug } = useParams(); // Get the slug from the URL
 
   useEffect(() => {
-    const status = "active"; // Replace 'active' with the status you want to fetch
-    appwriteService.getPosts(status).then((posts) => {
+    appwriteService.getPostBySlug(slug).then((posts) => {
       if (posts) {
         setPosts(posts.documents);
         setIsLoading(false); // Set loading to false after data is fetched
       }
     });
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, [slug]); // Dependency array includes slug to refetch when it changes
 
   return isLoading ? (
     <div>
@@ -46,4 +38,4 @@ function AllPosts() {
   );
 }
 
-export default AllPosts;
+export default SlugPosts;

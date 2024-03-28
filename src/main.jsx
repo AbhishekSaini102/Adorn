@@ -26,6 +26,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import AEditor from "./pages/AEditor.jsx";
 import CompileCodeEditor from "./pages/CompileCodeEditor.jsx";
+import SlugPosts from "./pages/SlugPosts.jsx";
 
 
 
@@ -88,6 +89,15 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/posts/:slug",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <SlugPosts />
+          </AuthLayout>
+        ),
+      },
+      {
         path: "/add-post",
         element: (
           <AuthLayout authentication>
@@ -106,7 +116,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/post/:slug/:post_Id",
+        path: "/:languages/:slug/:post_Id",
         element: <Post />,
       },
 
@@ -124,12 +134,12 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <CompileCodeEditor/>
+            <CompileCodeEditor />
           </AuthLayout>
         ),
       },
       {
-        path: "/html",
+        path: "/html/:slug",
         element: (
           <AuthLayout authentication>
             {" "}
@@ -139,7 +149,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/html/:slug/:post_Id",
+        path: "/:languages/:slug/:post_Id",
         element: (
           <AuthLayout authentication>
             {" "}

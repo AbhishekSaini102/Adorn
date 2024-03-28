@@ -251,7 +251,7 @@ function AEditor() {
   };
 
   return (
-    <div className="flex flex-col space-y-2 h-90vh">
+    <div className="flex flex-col space-y-2">
       <div className="flex justify-around mt-1 w-full">
         <div className="flex space-x-2 mr-40">
           <div className="w-96">
@@ -291,18 +291,17 @@ function AEditor() {
           </button>
         </div>
       </div>
-      <div className="flex space-x-2 h-full">
-        <div className="w-2/3 h-full border rounded">
+      <div className="flex space-x-2 ">
+        <div className="w-2/3 border rounded">
           <AdornEditor
             language={editorLanguage}
             theme={editorTheme}
             value={code}
-
           />
         </div>
-        <div className="w-1/3 h-screen px-0 pt-4 pb-2 border rounded-lg overflow-auto">
-          <h2 className="text-lg mb-4 ml-3">Output</h2>
-          <div className="p-4 border h-5/6 rounded overflow-auto bg-gray-100 ">
+        <div className="w-1/3 px-0 pt-4 pb-2 border rounded-lg overflow-auto ">
+          <h2 className="text-lg mb-4 ml-3 ">Output</h2>
+          <div className="p-4 border h-full rounded overflow-auto bg-gray-100 z-10">
             {output}
           </div>
         </div>

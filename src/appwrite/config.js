@@ -131,8 +131,21 @@ export class Service {
     }
   }
 
-  async getPosts(queries = [Query.equal("status", "active")]) {
+  // async getPosts(queries = [Query.equal("status", "active")]) {
+  //   try {
+  //     return await this.databases.listDocuments(
+  //       conf.appwriteDatabaseId,
+  //       conf.appwriteCollectionId,
+  //       queries
+  //     );
+  //   } catch (error) {
+  //     console.log("Appwrite service :: getPosts :: error", error);
+  //     return false;
+  //   }
+  // }
+  async getPosts(status) {
     try {
+      let queries = [Query.equal("status", status)];
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
@@ -172,6 +185,23 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service :: getPosts :: error", error);
+      return false;
+    }
+  }
+
+  async getPostBySlug(slug) {
+    try {
+      let queries = [
+        Query.equal("status", "active"),
+        Query.equal("slug", slug),
+      ];
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getPostBySlug :: error", error);
       return false;
     }
   }

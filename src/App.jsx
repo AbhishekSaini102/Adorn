@@ -74,10 +74,10 @@ function App() {
         <Header />
       </header>
       {/* <main className="flex-grow" style={{ minHeight: "auto" }}> */}
-      <main className="flex-grow" style={{ minHeight: "100vh" }}>
+      <main className="flex-grow" style={{ minHeight: "" }}>
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   ) : null;
 }

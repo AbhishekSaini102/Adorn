@@ -879,10 +879,10 @@ export default function PostForm({ post }) {
     setValue("code", value);
   };
 
-  const languages = ["html", "css"];
+  const languages = ["html", "css","cpp","c", "java", "javascript", "python"];
   const topics = {
-    html: ["Html Element", "Topic2"],
-    css: ["Css Basic", "Sujet2"],
+    html: ["Html Element", "HTML Attribute", "Html Basic","HTML5","Html Css"],
+    css: ["Css Basic", "Css Flexbox", "Css Grid","Css Animation","Css Transition"],
   };
 
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -991,7 +991,7 @@ export default function PostForm({ post }) {
 
       if (dbPost) {
         // navigate(`/post/${dbPost.$id}`);
-        navigate(`/post/${dbPost.slug}/${dbPost.$id}`);
+        navigate(`/${dbPost.languages}/${dbPost.slug}/${dbPost.$id}`);
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
@@ -1011,7 +1011,7 @@ export default function PostForm({ post }) {
 
         if (dbPost) {
           // navigate(`/post/${dbPost.$id}`);
-          navigate(`/post/${dbPost.slug}/${dbPost.$id}`);
+          navigate(`/${dbPost.languages}/${dbPost.slug}/${dbPost.$id}`);
         }
       }
     }

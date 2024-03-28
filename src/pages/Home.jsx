@@ -4,6 +4,7 @@ import { Button, Container } from "../components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 function Home() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -35,15 +36,24 @@ function Home() {
           links, and more, making your web page interactive and dynamic. It’s
           the foundation of any web page you see on the internet.
         </p>
-        <Button
+        {/* <Button
           onClick={() => {
-            navigate(authStatus ? "/html" : "/login");
+            navigate(authStatus ? `/html/${slug}` : "/login");
           }}
           bgColor="bg-blue-500"
           className="text-white hover:bg-blue-600 hover:text-blue-600  mt-2"
         >
           Learn HTML
-        </Button>
+        </Button>  */}
+
+        <div className="mt-6">
+          <Link
+            to={authStatus ? "/html/html-element" : "/login"}
+            className="btn btn-primary  text-white font-semibold rounded bg-blue-600 px-4 py-3 hover:bg-blue-600 hover:text-white"
+          >
+            Learn HTML
+          </Link>
+        </div>
       </div>
     </div>
   );
